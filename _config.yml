@@ -1,0 +1,9 @@
+title: Nakul Chawla
+baseurl: ""
+logo: /assets/profile.jpg
+description: Nakul Chawla
+show_downloads: false
+google_analytics:
+theme: jekyll-theme-minimal
+exclude:
+  - external_links
