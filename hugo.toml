@@ -1,0 +1,34 @@
+baseURL = 'https://nakul.net/'
+languageCode = 'en-us'
+title = 'stdout by Nakul'
+publishDir = "docs"
+theme = "PaperMod"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[params]
+# Enable home info mode to display content nicely
+showPostNavLinks = true
+
+[params.homeInfoParams]
+Title = "Hi there!"
+Content = """
+<img src="/images/profile.jpg" alt="Nakul Chawla" style="border-radius: 50%; width: 150px; height: 150px; object-fit: cover; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
+
+Hi, I'm Nakul — a software engineer exploring the edges of infrastructure.
+
+I'm passionate about building reliable systems at scale. You'll usually find me working on distributed systems, performance tuning, or experimenting with ML infrastructure — from tracing pipelines to real-time data flows.
+
+This space is a mix of notes, ideas, and deep dives into topics I'm exploring or just tinkering with tools I am interested in.
+
+I write primarily to clarify my own thinking, but if any of it helps you, that's a bonus.
+
+**🤝 Connect with me:**
+
+<a href="https://linkedin.com/in/thenakulchawla" target="_blank" rel="noopener">💼 LinkedIn</a> · <a href="https://github.com/thenakulchawla" target="_blank" rel="noopener">💻 GitHub</a> · <a href="https://stackoverflow.com/users/4057016" target="_blank" rel="noopener">📊 Stack Overflow</a> · <a href="mailto:msg@nakul.net" target="_blank" rel="noopener">📬 Email</a>
+
+---
+
+<a href="resources/resume.pdf" target="_blank" rel="noopener"><strong>📄 Download Resume</strong></a>
+"""

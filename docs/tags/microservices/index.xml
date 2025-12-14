@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Microservices on stdout by Nakul</title>
+    <link>http://localhost:1313/tags/microservices/</link>
+    <description>Recent content in Microservices on stdout by Nakul</description>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/microservices/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Parchment - contextual logging in go</title>
+      <link>http://localhost:1313/posts/parchment/</link>
+      <pubDate>Sat, 08 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/parchment/</guid>
+      <description>&lt;p&gt;In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.&lt;/p&gt;
+&lt;p&gt;This is where &lt;a href=&#34;https://github.com/thenakulchawla/parchment&#34;&gt;parchment&lt;/a&gt; comes in — a minimalist wrapper around &lt;a href=&#34;https://github.com/rs/zerolog&#34;&gt;zerolog&lt;/a&gt; that enables logger propagation using Go’s native context.Context.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
