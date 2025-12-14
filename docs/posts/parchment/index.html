@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Parchment - contextual logging in go | stdout by Nakul</title>
 <meta name="keywords" content="">
 <meta name="description" content="In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.
 This is where parchment comes in — a minimalist wrapper around zerolog that enables logger propagation using Go’s native context.Context.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/parchment/">
+<link rel="canonical" href="https://nakul.net/posts/parchment/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://nakul.net/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://nakul.net/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://nakul.net/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://nakul.net/apple-touch-icon.png">
+<link rel="mask-icon" href="https://nakul.net/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/parchment/">
+<link rel="alternate" hreflang="en" href="https://nakul.net/posts/parchment/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,7 +56,71 @@ This is where parchment comes in — a minimalist wrapper around zerolog that en
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://nakul.net/posts/parchment/">
+  <meta property="og:site_name" content="stdout by Nakul">
+  <meta property="og:title" content="Parchment - contextual logging in go">
+  <meta property="og:description" content="In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.
+This is where parchment comes in — a minimalist wrapper around zerolog that enables logger propagation using Go’s native context.Context.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-08T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-06-08T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Parchment - contextual logging in go">
+<meta name="twitter:description" content="In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.
+This is where parchment comes in — a minimalist wrapper around zerolog that enables logger propagation using Go’s native context.Context.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://nakul.net/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Parchment - contextual logging in go",
+      "item": "https://nakul.net/posts/parchment/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Parchment - contextual logging in go",
+  "name": "Parchment - contextual logging in go",
+  "description": "In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.\nThis is where parchment comes in — a minimalist wrapper around zerolog that enables logger propagation using Go’s native context.Context.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "In many Go projects, structured logging becomes an essential tool for observability. When building microservices or backend APIs, logging with contextual information like request IDs, user IDs, or operation names becomes vital. One challenge, however, is passing logger instances through multiple layers of function calls without cluttering signatures or breaking separation of concerns.\nThis is where parchment comes in — a minimalist wrapper around zerolog that enables logger propagation using Go’s native context.Context.\nWhy Pass Loggers via Context? Traditionally, logger instances are passed around explicitly, like so:\nfunc handler(logger zerolog.Logger) { dbCall(logger) } func dbCall(logger zerolog.Logger) { logger.Info().Msg(\"querying db\") } While this works, it leads to bloated function signatures and makes deep call stacks harder to trace. More importantly, you lose the ability to attach structured fields at the entry point (say, a request) and have them persist automatically across the stack.\nInstead, by embedding the logger into a context, you can attach key-value pairs once, and automatically include them in all logs downstream.\nWhat Is Parchment? parchment is a lightweight library that solves this elegantly:\nIt injects a zerolog.Logger into context. It allows adding structured fields to the logger in-place, updating the context in a functional style. It provides convenient helpers to extract the logger and log messages anywhere the context is available. Basic Usage package main import ( \"context\" \"github.com/thenakulchawla/parchment\" ) func main() { ctx := context.Background() ctx = parchment.New(ctx) ctx = parchment.AddToLogger(ctx, []parchment.LoggerField{ {Key: \"request_id\", Value: \"abc-123\"}, {Key: \"user\", Value: \"nakul\"}, }) handle(ctx) } func handle(ctx context.Context) { log := parchment.FromContext(ctx) log.Info().Msg(\"handling request\") } The output will look like:\n{\"level\":\"info\",\"request_id\":\"abc-123\",\"user\":\"nakul\",\"message\":\"handling request\"} Inner Workings parchment defines a context key type internally and stores a zerolog.Logger instance in the context. When calling AddToLogger, the library retrieves the existing logger, appends fields using With(), and returns a new logger injected into a new context.\nTo safely extract and use the logger, it provides functions like:\nFromContext(ctx context.Context) zerolog.Logger: safely retrieves the logger or returns a no-op logger. AddToLogger(ctx, fields): adds multiple fields. Convenience functions like Info(ctx), Error(ctx), Debug(ctx) return corresponding zerolog event writers. This is done in a safe, type-checked way to prevent panics and ensure fallback behavior.\nBenefits Cleaner Function Signatures You no longer have to pass logger as an argument across functions. The context already exists for request-scoped data; adding the logger to it is natural and clean.\nLifecycle-bound Fields With each function having access to the same context, structured fields like request_id, job_name, or retry_count remain consistent and automatically attached to logs.\nBetter Tracing and Observability When logs across a request, job, or event share the same contextual fields, it’s easier to trace them in tools like Loki, Elasticsearch, or even just grep.\nPlug-and-Play with zerolog If you’re already using zerolog, parchment is a non-intrusive addition — just wrap your logger at the entry point and forget about it.\nWhen Should You Use It?\nparchment is ideal when:\nYou’re building microservices and want per-request tracing. You have deep call stacks where passing the logger explicitly is cumbersome. You use zerolog and want a simple way to propagate fields. If you’re building a CLI or small script where global logging suffices, parchment might be overkill. But for larger systems with concurrency, retries, and multiple goroutines — context-based logging is a huge win.\nConclusion Logging is more than just printing messages — it’s about maintaining observability across layers and lifecycles. With parchment, you can structure logs in a way that naturally fits Go’s idioms, especially its use of context.\nGive it a try: github.com/thenakulchawla/parchment\nLet your logs follow your context — not the other way around.\n",
+  "wordCount" : "597",
+  "inLanguage": "en",
+  "datePublished": "2024-06-08T00:00:00Z",
+  "dateModified": "2024-06-08T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://nakul.net/posts/parchment/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "stdout by Nakul",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://nakul.net/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -74,7 +138,7 @@ This is where parchment comes in — a minimalist wrapper around zerolog that en
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="stdout by Nakul (Alt + H)">stdout by Nakul</a>
+            <a href="https://nakul.net/" accesskey="h" title="stdout by Nakul (Alt + H)">stdout by Nakul</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -211,7 +275,7 @@ This is where parchment comes in — a minimalist wrapper around zerolog that en
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">stdout by Nakul</a></span> · 
+        <span>&copy; 2025 <a href="https://nakul.net/">stdout by Nakul</a></span> · 
 
     <span>
         Powered by
