@@ -56,7 +56,7 @@ The server supports hot reload - changes to content will automatically refresh y
 ├── docs/             # Generated site (deployed to GitHub Pages)
 ├── hugo.toml         # Hugo configuration
 ├── layouts/          # Custom layout overrides (optional)
-├── assets/           # Custom CSS/JS (optional)
+├── assets/           # Custom CSS/JS (optional)k
 └── archetypes/       # Content templates
 ```
 
